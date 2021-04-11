@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- <link rel="stylesheet" href="https://worldweather.wmo.int/styles/rwd.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.1/tailwind.min.css">
+
+    <link rel="stylesheet" href="./assets/css/weather-icons.min.css">
+    <link rel="stylesheet" href="./assets/css/app.css">
+
+    <title> Weather Dashboard</title>
+
+</head>
+
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main>
+        <div class="flex">
+
+            <section id="cities">
+                <form>
+                    <label>Search for a city</label>
+                    <input>
+                    <ul>
+                        <li> Austin </li>
+                        <li> Chicago </li>
+                        <li> New York </li>
+                        <li> Orlando </li>
+                        <li> San Francisco </li>
+                        <li> Seattle </li>
+                        <li> Denver </li>
+                        <li> Washington </li>
+                    </ul>
+                </form>
+            </section>
+            <section id="weather">
+                <article id="city">
+                    <h3>Atlanta (8/15/2019)</h3>
+                    <p id="temperature">temperature </p>
+                    <p id="humidity">humidity</p>
+                    <p id="wind-speed"> wind speed</p>
+                    <p id="UV-index">uv-index</p>
+                </article>
+                <article id="forecast">
+                    <h3> 5 day forecast for Atlanta:</h3>
+                    <div class="flex flex-row">
+
+                        <div id="today+1" class="5-day-forecast">
+                            <p class="date">8/16/2019</p>
+                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
+                            <p class="temp">Temperature: 86.54°F</p>
+                            <p class="humidity">humidity: 43%</p>
+                        </div>
+
+
+                        <div id="today+2" class="5-day-forecast">
+                            <p class="date">8/16/2019</p>
+                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
+                            <p class="temp">Temperature: 86.54°F</p>
+                            <p class="humidity">humidity: 43%</p>
+                        </div>
+
+                        <div id="today+3" class="5-day-forecast">
+                            <p class="date">8/16/2019</p>
+                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
+                            <p class="temp">Temperature: 86.54°F</p>
+                            <p class="humidity">humidity: 43%</p>
+                        </div>
+
+                        <div id="today+4" class="5-day-forecast">
+                            <p class="date">8/16/2019</p>
+                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
+                            <p class="temp">Temperature: 86.54°F</p>
+                            <p class="humidity">humidity: 43%</p>
+                        </div>
+
+                        <div id="today+5" class="5-day-forecast">
+                            <p class="date">8/16/2019</p>
+                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
+                            <p class="temp">Temperature: 86.54°F</p>
+                            <p class="humidity">humidity: 43%</p>
+                        </div>
+
+
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
