@@ -1,0 +1,38 @@
+:root {}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    background-color: darkslategray;
+    color: wheat;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: xx-large;
+}
+
+h3,
+form label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
+#search-results li {
+    border: black;
+    padding: 1.5em;
+    width: auto;
+}
+
+#cities {
+    background-color: cornsilk;
+}
+
+#cities,
+#weather,
+#city,
+#forecast {
+    border-style: solid;
+    border: 1px solid black;
+}
+
+#forecast h3::after{
+    
+}

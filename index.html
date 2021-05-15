@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <!-- <link rel="stylesheet" href="https://worldweather.wmo.int/styles/rwd.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.1/tailwind.min.css">
 
-    <link rel="stylesheet" href="./assets/css/weather-icons.min.css">
+    <!-- don't think I needed this .... -->
+    <!-- <link rel="stylesheet" href="./assets/css/weather-icons.min.css"> -->
+
+
     <link rel="stylesheet" href="./assets/css/app.css">
+
 
     <title> Weather Dashboard</title>
 
@@ -21,26 +24,24 @@
         <h1>Weather Dashboard</h1>
     </header>
     <main>
-        <div class="flex">
+        <div class="flex justify-center">
 
             <section id="cities">
-                <form>
-                    <label>Search for a city</label>
-                    <input>
-                    <ul>
-                        <li> Austin </li>
-                        <li> Chicago </li>
-                        <li> New York </li>
-                        <li> Orlando </li>
-                        <li> San Francisco </li>
-                        <li> Seattle </li>
-                        <li> Denver </li>
-                        <li> Washington </li>
-                    </ul>
+
+                <form id="city-search-form">
+                    <label for="search-for-city-input"> Search for a city </label>
+                    <div class="flex flex-row">
+                        <input type="text" id="search-for-city-input">
+                        <button type="submit">🔍</button>
+                    </div>
                 </form>
+
+                <ul id="search-results">
+                </ul>
             </section>
+
             <section id="weather">
-                <article id="city">
+                <article id="city-weather">
                     <h3>Atlanta (8/15/2019)</h3>
                     <p id="temperature">temperature </p>
                     <p id="humidity">humidity</p>
@@ -49,42 +50,22 @@
                 </article>
                 <article id="forecast">
                     <h3> 5 day forecast for Atlanta:</h3>
-                    <div class="flex flex-row">
+                    <div class="flex flex-row justify-between space-x-4">
 
-                        <div id="today+1" class="5-day-forecast">
-                            <p class="date">8/16/2019</p>
-                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
-                            <p class="temp">Temperature: 86.54°F</p>
-                            <p class="humidity">humidity: 43%</p>
+                        <div id="today-plus-1" class="bg-blue-700 rounded text-white">
                         </div>
 
 
-                        <div id="today+2" class="5-day-forecast">
-                            <p class="date">8/16/2019</p>
-                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
-                            <p class="temp">Temperature: 86.54°F</p>
-                            <p class="humidity">humidity: 43%</p>
+                        <div id="today-plus-2" class="bg-blue-700 rounded text-white">
                         </div>
 
-                        <div id="today+3" class="5-day-forecast">
-                            <p class="date">8/16/2019</p>
-                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
-                            <p class="temp">Temperature: 86.54°F</p>
-                            <p class="humidity">humidity: 43%</p>
+                        <div id="today-plus-3" class="bg-blue-700 rounded text-white">
                         </div>
 
-                        <div id="today+4" class="5-day-forecast">
-                            <p class="date">8/16/2019</p>
-                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
-                            <p class="temp">Temperature: 86.54°F</p>
-                            <p class="humidity">humidity: 43%</p>
+                        <div id="today-plus-4" class="bg-blue-700 rounded text-white">
                         </div>
 
-                        <div id="today+5" class="5-day-forecast">
-                            <p class="date">8/16/2019</p>
-                            <p class="icon"><i class="wi wi-day-sunny"></i></p>
-                            <p class="temp">Temperature: 86.54°F</p>
-                            <p class="humidity">humidity: 43%</p>
+                        <div id="today-plus-5" class="bg-blue-700 rounded text-white">
                         </div>
 
 
@@ -96,6 +77,7 @@
 
     <footer>
     </footer>
+    <!-- <script src="./assets/js/app.js"></script> -->
     <script src="./assets/js/app.js"></script>
 </body>
 
