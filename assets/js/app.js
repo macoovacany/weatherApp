@@ -114,14 +114,21 @@ const fiveDayForecastTemplate = function (date, icon, temp, humidity) {
 
 const cityWeatherTemplate = (cityname, data) => {
     const date = dt2date(data.current.dt);
-
-
+    const cssColSpans = 4
 
     return `                    <h3>${cityname} (${date})</h3>
-<p><div class='grid grid-cols-3 gap-4'> <div> Temperature </div> <div class='col-span-2'>${k2c_temp(data.current.temp)}°C </div> </div></p>
-<p><div class='grid grid-cols-3 gap-4'> <div> Humidity </div><div class='col-span-2'>${data.current.humidity}%  </div> </div></p>
-<p><div class='grid grid-cols-3 gap-4'> <div> Wind speed </div> <div class='col-span-2'>${mps2kts(data.current.wind_speed)} kts  </div> </div></p>
-<p><div class='grid grid-cols-3 gap-4'> <div> UV-index </div> <div class='col-span-2'><div class='${uvClass(data.current.uvi)}'>${data.current.uvi} </div> </div> </div></p>
+<p><div class='grid grid-cols-4 gap-4'> 
+    <div> Temperature </div> <div> ${k2c_temp(data.current.temp)}°C </div> <div class='col-span-2'></div>
+</div></p>
+<p><div class='grid grid-cols-4 gap-4'> 
+    <div> Humidity </div> <div>${data.current.humidity}% </div> <div class='col-span-2'></div>
+ </div></p>
+<p><div class='grid grid-cols-4 gap-4'>
+     <div> Wind speed </div> <div> ${mps2kts(data.current.wind_speed)} kts </div> <div class='col-span-2'></div> 
+</div></p>
+<p><div class='grid grid-cols-4 gap-4'> 
+    <div> UV-index </div>  <div> <span class='rounded ${uvClass(data.current.uvi)}'>${data.current.uvi}</span> </div> <div class='col-span-2'></div> 
+</div></p>
 `
 }
 

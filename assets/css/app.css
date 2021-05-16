@@ -15,6 +15,33 @@ form label {
     font-size: large;
 }
 
+.uv-low {
+    background-color: green;
+    color: black;
+}
+.uv-mod {
+    background-color: yellow;
+    color: black;
+    
+}
+.uv-high {
+    background-color: orange;
+    color: black;
+    
+}
+.uv-very-high {
+    background-color: red;
+    color: black;
+    
+}
+
+.uv-extreme {
+    background-color:black;
+    color: purple;
+
+}
+
+
 #search-results li {
     border: black;
     padding: 1.5em;
