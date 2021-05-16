@@ -1,5 +1,4 @@
 API_KEY_WEATHER = 'b57a086ab34710904001fa7b284f833c'
-// weatherURL = 'https://openweathermap.org/api';
 
 // *****************************************************************************
 // general helper functions
@@ -44,7 +43,7 @@ document.querySelector("#city-search-form").addEventListener('submit', (event) =
 
 // Add searched city to local storage
 function searchForCity(city) {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY_WEATHER}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY_WEATHER}`)
         .then(response => response.json())
         .then(arrData => {
             // data is an array because multiple values returned
