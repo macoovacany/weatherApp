@@ -8,94 +8,6 @@ const dt2date = function (dt) {
     return d.toLocaleString().split(',')[0]
 }
 
-// ***********************************************************
-// api calls and dom updates
-// ***********************************************************
-const getNewCity = (city) => {
-    const cityElement = document.querySelector('#city-weather');
-
-    window.fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=appid=${API_KEY_WEATHER}`)
-        .then(response => response.json())
-        .then(data => {
-            cityElement.innerHTML = cityWeatherTemplate(data)
-        })
-
-
-
-        // window.fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Atlanta&appid=${API_KEY_WEATHER}`)
-        // .then(response => response.json())
-        // .then(data => console.log(data));
-
-
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${API_KEY_WEATHER}`
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ***********************************************************
-// html templates
-// ***********************************************************
-const fiveDayForecastTemplate = function (date, icon, temp, humidity) {
-    return `<p class="date">${date}</p>
-<p class="icon"><i class="wi ${icon}"></i></p>
-<p class="temp">Temperature: ${temp} °C</p>
-<p class="humidity">humidity: ${humidity}</p>
-`}
-
-
-const cityWeatherTemplate = (data) => {
-    const date = dtdate(data.dt);
-
-    return `                    <h3>${data.name} (${date})</h3>
-<p id="temperature">${k2c_temp(data.main.temp)}°C </p>
-<p id="humidity">${data.main.humidity}%</p>
-<p id="wind-speed"> ${mps2kts(data.wind.speed)} kts</p>
-<p id="UV-index">uv-index</p>
-`
-}
-
-
-
-
-
-
-const upDateFiveDayForecast = (city) => {
-    for (let index = 1; index <= 5; index++) {
-        const element = document.querySelector(`#today-plus-${index}`);
-        element.innerHTML = fiveDayForecastTemplate(`8/${10 + index}/2019`, 'wi-day-sunny', '86.54°F', `${40 + index * 2}%`);
-    }
-}
-
-
-
-
 
 
 
@@ -153,6 +65,72 @@ const updateSearchResultsList = (cities) => {            //  now update the DOM
 
 
 
+
+
+// ***********************************************************
+// update weather results
+// ***********************************************************
+const updateWeatherReport = (city) => {
+    const cityElement = document.querySelector('#city-weather');
+
+
+    // convert city name into lat / long from local storage
+    let storedCityData = JSON.parse(localStorage.getItem('weatherApp'));
+    let { lat, lon } = storedCityData[city]
+
+
+
+    // window.fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=appid=${API_KEY_WEATHER}`)
+    window.fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${API_KEY_WEATHER}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            cityElement.innerHTML = cityWeatherTemplate(city, data);
+        })
+}
+
+
+// ***********************************************************
+// html templates
+// ***********************************************************
+const fiveDayForecastTemplate = function (date, icon, temp, humidity) {
+    return `<p class="date">${date}</p>
+<p class="icon"><i class="wi ${icon}"></i></p>
+<p class="temp">Temperature: ${temp} °C</p>
+<p class="humidity">humidity: ${humidity}</p>`;
+}
+
+
+const cityWeatherTemplate = (cityname, data) => {
+    const date = dt2date(data.current.dt);
+
+    return `                    <h3>${cityname} (${date})</h3>
+<p id="temperature">${k2c_temp(data.current.temp)}°C </p>
+<p id="humidity">${data.current.humidity}%</p>
+<p id="wind-speed"> ${mps2kts(data.current.wind_speed)} kts </p>
+<p id="UV-index">${data.current.uvi}</p>
+`
+}
+
+
+
+
+
+
+const upDateFiveDayForecast = (city) => {
+    for (let index = 1; index <= 5; index++) {
+        const element = document.querySelector(`#today-plus-${index}`);
+        element.innerHTML = fiveDayForecastTemplate(`8/${10 + index}/2019`, 'wi-day-sunny', '86.54°F', `${40 + index * 2}%`);
+    }
+}
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", (e) => {
     e.preventDefault();
     if (!localStorage.getItem('weatherApp')) {
@@ -163,4 +141,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         updateSearchResultsList(cities)
     }
 });
+
+
+
 
