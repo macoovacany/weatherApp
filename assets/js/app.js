@@ -8,6 +8,19 @@ const dt2date = function (dt) {
     return d.toLocaleString().split(',')[0]
 }
 
+const uvClass = (uvi) => {
+    if (uvi < 2) {
+        return 'uv-low';
+    } else if (uvi < 5) {
+        return 'uv-mod';
+    } else if (uvi < 7) {
+        return 'uv-high';
+    } else if (uvi < 10) {
+        return 'uv-very-high';
+    } else {
+        return 'uv-extreme';
+    }
+}
 
 
 
@@ -65,8 +78,6 @@ const updateSearchResultsList = (cities) => {            //  now update the DOM
 
 
 
-
-
 // ***********************************************************
 // update weather results
 // ***********************************************************
@@ -104,11 +115,13 @@ const fiveDayForecastTemplate = function (date, icon, temp, humidity) {
 const cityWeatherTemplate = (cityname, data) => {
     const date = dt2date(data.current.dt);
 
+
+
     return `                    <h3>${cityname} (${date})</h3>
-<p id="temperature">${k2c_temp(data.current.temp)}°C </p>
-<p id="humidity">${data.current.humidity}%</p>
-<p id="wind-speed"> ${mps2kts(data.current.wind_speed)} kts </p>
-<p id="UV-index">${data.current.uvi}</p>
+<p><div class='grid grid-cols-3 gap-4'> <div> Temperature </div> <div class='col-span-2'>${k2c_temp(data.current.temp)}°C </div> </div></p>
+<p><div class='grid grid-cols-3 gap-4'> <div> Humidity </div><div class='col-span-2'>${data.current.humidity}%  </div> </div></p>
+<p><div class='grid grid-cols-3 gap-4'> <div> Wind speed </div> <div class='col-span-2'>${mps2kts(data.current.wind_speed)} kts  </div> </div></p>
+<p><div class='grid grid-cols-3 gap-4'> <div> UV-index </div> <div class='col-span-2'><div class='${uvClass(data.current.uvi)}'>${data.current.uvi} </div> </div> </div></p>
 `
 }
 
