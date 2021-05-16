@@ -1,6 +1,11 @@
 API_KEY_WEATHER = 'b57a086ab34710904001fa7b284f833c'
 // weatherURL = 'https://openweathermap.org/api';
 
+// *****************************************************************************
+// general helper functions
+// *****************************************************************************
+
+
 const k2c_temp = (k) => Math.round(k - 273.15);
 const mps2kts = (mps) => Math.round(mps * 1.94384);
 const dt2date = function (dt) {
@@ -9,6 +14,7 @@ const dt2date = function (dt) {
 }
 
 const uvClass = (uvi) => {
+    //  takes uv index value and returns the class of the uv index
     if (uvi < 2) {
         return 'uv-low';
     } else if (uvi < 5) {
@@ -59,9 +65,15 @@ function searchForCity(city) {
                 cities.sort()
             }
             updateSearchResultsList(cities);
+            return data.name;
+        })
+        .then(city => {
+            // clear the seach bar
+            document.querySelector("#search-for-city-input").value = '';
+            //  update the display
+            updateWeatherReport(city);
         })
 }
-
 
 const updateSearchResultsList = (cities) => {            //  now update the DOM
     let searchResultsList = document.querySelector('#search-results');
@@ -81,30 +93,57 @@ const updateSearchResultsList = (cities) => {            //  now update the DOM
 // ***********************************************************
 // update weather results
 // ***********************************************************
+
+// event listener for the oncick of the results tab
+document.querySelector('#search-results').addEventListener('click', (event) => {
+    event.preventDefault();
+    updateWeatherReport(event.target.innerHTML)
+
+});
+
 const updateWeatherReport = (city) => {
     const cityElement = document.querySelector('#city-weather');
-
 
     // convert city name into lat / long from local storage
     let storedCityData = JSON.parse(localStorage.getItem('weatherApp'));
     let { lat, lon } = storedCityData[city]
 
-
-
     // window.fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=appid=${API_KEY_WEATHER}`)
     window.fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${API_KEY_WEATHER}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             cityElement.innerHTML = cityWeatherTemplate(city, data);
+            upDateFiveDayForecast(city, data);
         })
 }
 
 
-// ***********************************************************
-// html templates
-// ***********************************************************
-const fiveDayForecastTemplate = function (date, icon, temp, humidity) {
+const upDateFiveDayForecast = (city, data) => {
+
+    let forecast = document.querySelector('#forecast');
+
+    // update heading
+    document.querySelector('#forecast h3').innerText = `Forecast for ${city} : `;
+
+    console.log(data);
+    // cities.sort().forEach(city => {
+    //     let li = document.createElement('li');
+    //     let liText = document.createTextNode(city);
+    for (let index = 1; index <= 5; index++) {
+        const element = document.querySelector(`#today-plus-${index}`);
+        element.innerHTML = fiveDayForecastTemplate(data.daily[index]);
+    }
+
+    //     li.appendChild(liText);
+    //     searchResultsList.appendChild(li);
+}
+
+const fiveDayForecastTemplate = function (dataDaily) {
+    let date = dt2date(dataDaily.dt)
+    let icon = ''
+    let temp = k2c_temp(dataDaily.temp.day);
+    let humidity = dataDaily.humidity;
+
     return `<p class="date">${date}</p>
 <p class="icon"><i class="wi ${icon}"></i></p>
 <p class="temp">Temperature: ${temp} °C</p>
@@ -134,23 +173,9 @@ const cityWeatherTemplate = (cityname, data) => {
 
 
 
-
-
-
-const upDateFiveDayForecast = (city) => {
-    for (let index = 1; index <= 5; index++) {
-        const element = document.querySelector(`#today-plus-${index}`);
-        element.innerHTML = fiveDayForecastTemplate(`8/${10 + index}/2019`, 'wi-day-sunny', '86.54°F', `${40 + index * 2}%`);
-    }
-}
-
-
-
-
-
-
-
-
+// ***********************************************************
+// event listeners
+// ***********************************************************
 document.addEventListener("DOMContentLoaded", (e) => {
     e.preventDefault();
     if (!localStorage.getItem('weatherApp')) {
@@ -162,6 +187,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", (e) => {
+    e.preventDefault();
+    if (!localStorage.getItem('weatherApp')) {
+        localStorage.setItem('weatherApp', '{}')
+    } else {
+        let storedCityData = JSON.parse(localStorage.getItem('weatherApp'));
+        cities = Object.keys(storedCityData);
+        updateSearchResultsList(cities)
+    }
+});
 
 
 
